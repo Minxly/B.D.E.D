@@ -1,7 +1,55 @@
 from tkinter import *
 from openpyxl import load_workbook
-from tkinter import messagebox
 from PIL import ImageTk, Image
+from tkinter import messagebox
+
+
+def help_window(event):
+    root_2 = Tk()
+
+    root_2.title("B.D.E.D")
+
+    root_2.geometry("600x380")
+
+    menuFrame_2 = Frame(root_2, bg="#060273", height="30")
+    menuFrame_2.pack(fill=X)
+
+    spaceFrame_4 = Frame(root_2, height="35")
+    spaceFrame_4.pack(fill=X)
+
+    tFrame_2 = Frame(root_2)
+    title_2 = Label(tFrame_2, text="Help")
+    title_2.config(font=("Arial", 18))
+    title_2.pack()
+    tFrame_2.pack()
+
+    spaceFrame_5 = Frame(root_2, height="20")
+    spaceFrame_5.pack(fill=X)
+
+    mainFrame_2 = Frame(root_2, borderwidth="2", relief=SUNKEN, width="400", height="180")
+    label_7 = Label(mainFrame_2, text="When Entering Yor Name Use Your Full Name")
+    label_8 = Label(mainFrame_2, text="Eg: John Doe", fg="#060273")
+    label_9 = Label(mainFrame_2, text="When Entering The Date Enter It In The Following Format: Month, Day, Year")
+    label_10 = Label(mainFrame_2, text="Eg: December, 1, 2019", fg="#060273")
+    label_11 = Label(mainFrame_2, text="When Entering The Cost You Don't Have To Include A Dollar Sign ")
+    label_12 = Label(mainFrame_2, text="Eg: 299.99", fg="#060273")
+    label_13 = Label(mainFrame_2, text="Make Sure To Enter All Details Properly")
+    label_7.grid(row=0)
+    label_8.grid(row=1)
+    label_9.grid(row=2)
+    label_10.grid(row=3)
+    label_11.grid(row=4)
+    label_12.grid(row=5)
+    label_13.grid(row=6)
+    mainFrame_2.pack()
+
+    spaceFrame_6 = Frame(root_2, height="20")
+    spaceFrame_6.pack(fill=X)
+
+    bMenuFrame_2 = Frame(root_2, bg="#060273", height="30")
+    bMenuFrame_2.pack(fill=X, side=BOTTOM)
+
+    root_2.mainloop()
 
 
 def end(event):
@@ -37,14 +85,14 @@ def print_check():
     if len(eName) and len(eDate) and len(eItem) and len(eCost) and len(eProject) and len(eSupplier) >= 1:
         for info in all_entries:
             page.append(info)
-    wb.save(filename=workbook_name)
+        wb.save(filename=workbook_name)
 
-    root.destroy()
+        root.destroy()
 
 
 root = Tk()
 
-root.title("Budgeting")
+root.title("B.D.E.D")
 
 root.geometry("600x380")
 
@@ -123,6 +171,13 @@ myimg = ImageTk.PhotoImage(powerButton)
 canvas_1.create_image(15, 15, image=myimg)
 canvas_1.bind("<Button>", end)
 canvas_1.pack(side=LEFT)
+canvas_2 = Canvas(bMenuFrame_1, height="30", bg="#060273", highlightthickness=0)
+questionButton = Image.open("help_button.png")
+questionButton = questionButton.resize((20, 20), Image.ANTIALIAS)
+myimg_2 = ImageTk.PhotoImage(questionButton)
+canvas_2.create_image(15, 15, image=myimg_2)
+canvas_2.bind("<Button>", help_window)
+canvas_2.pack(side=RIGHT)
 bMenuFrame_1.pack(fill=X)
 
 root.mainloop()
