@@ -5,6 +5,10 @@ from tkinter import messagebox
 
 
 def help_window(event):
+
+    def close_window():
+        root_2.destroy()
+
     root_2 = Tk()
 
     root_2.title("B.D.E.D")
@@ -14,7 +18,7 @@ def help_window(event):
     menuFrame_2 = Frame(root_2, bg="#060273", height="30")
     menuFrame_2.pack(fill=X)
 
-    spaceFrame_4 = Frame(root_2, height="35")
+    spaceFrame_4 = Frame(root_2, height="25")
     spaceFrame_4.pack(fill=X)
 
     tFrame_2 = Frame(root_2)
@@ -43,8 +47,14 @@ def help_window(event):
     label_13.grid(row=6)
     mainFrame_2.pack()
 
-    spaceFrame_6 = Frame(root_2, height="20")
+    spaceFrame_6 = Frame(root_2, height="10")
     spaceFrame_6.pack(fill=X)
+
+    bFrame_2 = Frame(root_2, height="20")
+    enter_2 = Button(bFrame_2, text="Close Window", command=close_window, width=12, height=2)
+    enter_2.config(font=("Arial", 18))
+    enter_2.grid(row=0, columnspan=4)
+    bFrame_2.pack()
 
     bMenuFrame_2 = Frame(root_2, bg="#060273", height="30")
     bMenuFrame_2.pack(fill=X, side=BOTTOM)
@@ -71,23 +81,24 @@ def print_check():
     all_entries = [[eName, eDate, eItem, eCost, eProject, eSupplier]]
 
     if len(eName) == 0:
-        messagebox.showerror("Error", "Please Enter Your Name")
+        messagebox.showerror("Error", "Please Enter Your Name", icon="warning")
     if len(eDate) == 0:
-        messagebox.showerror("Error", "Please Enter The Date")
+        messagebox.showerror("Error", "Please Enter The Date", icon="warning")
     if len(eItem) == 0:
-        messagebox.showerror("Error", "Please Enter The Item Purchased")
+        messagebox.showerror("Error", "Please Enter The Item Purchased", icon="warning")
     if len(eCost) == 0:
-        messagebox.showerror("Error", "Please Enter The Cost")
+        messagebox.showerror("Error", "Please Enter The Cost", icon="warning")
     if len(eProject) == 0:
-        messagebox.showerror("Error", "Please Enter Your Current Project")
+        messagebox.showerror("Error", "Please Enter Your Current Project", icon="warning")
     if len(eSupplier) == 0:
-        messagebox.showerror("Error", "Please Enter The Supplier")
+        messagebox.showerror("Error", "Please Enter The Supplier", icon="warning")
     if len(eName) and len(eDate) and len(eItem) and len(eCost) and len(eProject) and len(eSupplier) >= 1:
-        for info in all_entries:
-            page.append(info)
-        wb.save(filename=workbook_name)
-
-        root.destroy()
+        ayn = messagebox.askquestion("B.D.E.D", "Are You Sure")
+        if ayn == 'yes':
+            for info in all_entries:
+                page.append(info)
+            wb.save(filename=workbook_name)
+            root.destroy()
 
 
 root = Tk()
