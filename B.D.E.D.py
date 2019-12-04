@@ -1,4 +1,4 @@
-from tkinter import *
+ffrom tkinter import *
 from openpyxl import load_workbook
 from PIL import ImageTk, Image
 from tkinter import messagebox
@@ -84,6 +84,8 @@ def print_check():
 
     all_entries = [[eName, eDate, eItem, eCost, eProject, eSupplier]]
 
+    if eCost.isalpha():
+        messagebox.showerror("Error", "Please Enter The Cost Properly", icon="warning")
     if len(eName) == 0:
         messagebox.showerror("Error", "Please Enter Your Name", icon="warning")
     if len(eDate) == 0:
@@ -96,7 +98,7 @@ def print_check():
         messagebox.showerror("Error", "Please Enter Your Current Project", icon="warning")
     if len(eSupplier) == 0:
         messagebox.showerror("Error", "Please Enter The Supplier", icon="warning")
-    if len(eName) and len(eDate) and len(eItem) and len(eCost) and len(eProject) and len(eSupplier) >= 1:
+    if len(eName) and len(eDate) and len(eItem) and len(eCost) and len(eProject) and len(eSupplier) >= 1 and eCost.isdigit():
         ayn = messagebox.askquestion("B.D.E.D", "Are You Sure")
         if ayn == 'yes':
             for info in all_entries:
