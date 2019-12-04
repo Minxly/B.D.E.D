@@ -15,10 +15,12 @@ def help_window(event):
 
     root_2.geometry("600x380")
 
+    root_2.resizable(False, False)
+
     menuFrame_2 = Frame(root_2, bg="#060273", height="30")
     menuFrame_2.pack(fill=X)
 
-    spaceFrame_4 = Frame(root_2, height="25")
+    spaceFrame_4 = Frame(root_2, height="15")
     spaceFrame_4.pack(fill=X)
 
     tFrame_2 = Frame(root_2)
@@ -27,7 +29,7 @@ def help_window(event):
     title_2.pack()
     tFrame_2.pack()
 
-    spaceFrame_5 = Frame(root_2, height="20")
+    spaceFrame_5 = Frame(root_2, height="10")
     spaceFrame_5.pack(fill=X)
 
     mainFrame_2 = Frame(root_2, borderwidth="2", relief=SUNKEN, width="400", height="180")
@@ -37,7 +39,8 @@ def help_window(event):
     label_10 = Label(mainFrame_2, text="Eg: December, 1, 2019", fg="#060273")
     label_11 = Label(mainFrame_2, text="When Entering The Cost You Don't Have To Include A Dollar Sign ")
     label_12 = Label(mainFrame_2, text="Eg: 299.99", fg="#060273")
-    label_13 = Label(mainFrame_2, text="Make Sure To Enter All Details Properly")
+    label_13 = Label(mainFrame_2, text="Make Sure To#060273 Enter All Details Properly")
+    label_14 = Label(mainFrame_2, text="For Any Further Questions Contact matt.lipton@ucc.on.ca", fg="#060273")
     label_7.grid(row=0)
     label_8.grid(row=1)
     label_9.grid(row=2)
@@ -45,6 +48,7 @@ def help_window(event):
     label_11.grid(row=4)
     label_12.grid(row=5)
     label_13.grid(row=6)
+    label_14.grid(row=7)
     mainFrame_2.pack()
 
     spaceFrame_6 = Frame(root_2, height="10")
@@ -106,6 +110,8 @@ root = Tk()
 root.title("B.D.E.D")
 
 root.geometry("600x380")
+
+root.resizable(False, False)
 
 '#top menu frame'
 menuFrame_1 = Frame(root, bg="#060273", height="30")
