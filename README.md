@@ -2,15 +2,14 @@
 Welcome To B.D.E.D. Berfore Running There Are A Few Things You Need
 ---------------------------
 Python Module Requirements:
-openpyxl
+gspread
 Python Imaging Library (PIL)
+Date time
 tkinter
--------------------
-Other Requirements:
-Microsoft Excel
 ------------------------
 Pyhton Module Downloads:
-pip install openpyxl
-pip install PIL
+pip3 install gspread oauth2client
+pip3 install pillow
+pip3 install datetime
 tkinter is built-in
 ------------------------
