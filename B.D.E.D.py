@@ -1,5 +1,6 @@
 from tkinter import *
-from openpyxl import load_workbook
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 from PIL import ImageTk, Image
 from tkinter import messagebox
 
@@ -16,7 +17,7 @@ def help_window(event):
     root_2.geometry("600x380")
 
     root_2.resizable(False, False)
-    
+
     '#Creates the top menu frame on root_2'
     menuFrame_2 = Frame(root_2, bg="#060273", height="30")
     menuFrame_2.pack(fill=X)
@@ -24,8 +25,8 @@ def help_window(event):
     '#Makes space on root_2'
     spaceFrame_4 = Frame(root_2, height="15")
     spaceFrame_4.pack(fill=X)
-    
-    '#Creates title frame on root_2' 
+
+    '#Creates title frame on root_2'
     tFrame_2 = Frame(root_2)
     tFrame_2.pack()
 
@@ -33,7 +34,7 @@ def help_window(event):
     title_2 = Label(tFrame_2, text="Help")
     title_2.config(font=("Arial", 18))
     title_2.pack()
-    
+
     '#Makes space on roo_2'
     spaceFrame_5 = Frame(root_2, height="10")
     spaceFrame_5.pack(fill=X)
@@ -59,7 +60,7 @@ def help_window(event):
     label_12.grid(row=5)
     label_13.grid(row=6)
     label_14.grid(row=7)
-    
+
     '#Makes space on root_2'
     spaceFrame_6 = Frame(root_2, height="10")
     spaceFrame_6.pack(fill=X)
@@ -67,12 +68,12 @@ def help_window(event):
     '#Creates the button frame on root_2'
     bFrame_2 = Frame(root_2, height="20")
     bFrame_2.pack()
-    
+
     '#Creates enter button that is closes the window'
     enter_2 = Button(bFrame_2, text="Close Window", command=close_window, width=12, height=2)
     enter_2.config(font=("Arial", 18))
     enter_2.grid(row=0, columnspan=4)
-    
+
     '#Creates bottom menu frame on root_2'
     bMenuFrame_2 = Frame(root_2, bg="#060273", height="30")
     bMenuFrame_2.pack(fill=X, side=BOTTOM)
@@ -92,13 +93,14 @@ def print_check():
     eP = entry_5.get()
     eS = entry_6.get()
 
-    '#Opens B.D.E.D.xlsx'
-    workbook_name = "B.D.E.D.xlsx"
-    wb = load_workbook(workbook_name)
-    
+    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    credentials = ServiceAccountCredentials.from_json_keyfile_name("b-d-e-d-fcc4fe94dee5.json", scope)
+    client = gspread.authorize(credentials)
+
     '#Sets page variable to allow editing of B.D.E.D.xlsx'
-    page = wb.active
-    
+    sheet = client.open("bded_data").sheet1
+    sheet.resize(100000, 6)
+
     '#Creates list of all the entry box data'
     all_entries = [[eN, eD, eI, eC, eP, eS]]
 
@@ -117,15 +119,15 @@ def print_check():
         messagebox.showerror("Error", "Please Enter Your Current Project", icon="warning")
     if len(eS) == 0:
         messagebox.showerror("Error", "Please Enter The Supplier", icon="warning")
-        
+
     '#Checks if all the data was entered properly then adds it to B.D.E.D.xlsx'
     if len(eN) and len(eD) and len(eI) and len(eC) and len(eP) and len(eS) >= 1 and eC.isdigit():
         ayn = messagebox.askquestion("B.D.E.D", "Are You Sure")
         if ayn == 'yes':
             for info in all_entries:
-                page.append(info)
-            '#Saves the file then closes the window to prevent duplicate entries'
-            wb.save(filename=workbook_name)
+                sheet.append_row(info)
+
+            '#Closes the window to prevent duplicate entries'
             root.destroy()
 
 
