@@ -3,7 +3,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from PIL import ImageTk, Image
 from tkinter import messagebox
-from tkcalendar import DateEntry
+import datetime
 
 
 def help_window(event):
@@ -45,18 +45,18 @@ def help_window(event):
     mainFrame_2.pack()
 
     '#Create and add label widgets to root_2'
-    label_7 = Label(mainFrame_2, text="When Entering Yor Name Use Your Full Name")
-    label_8 = Label(mainFrame_2, text="Eg: John Doe", fg="#060273")
-    label_9 = Label(mainFrame_2, text="When Entering The Cost You Don't Have To Include A Dollar Sign ")
-    label_10 = Label(mainFrame_2, text="Eg: 299.99", fg="#060273")
-    label_11 = Label(mainFrame_2, text="Make Sure To Enter All Details Properly")
-    label_12 = Label(mainFrame_2, text="For Any Further Questions Contact matt.lipton@ucc.on.ca", fg="#060273")
-    label_7.grid(row=0)
-    label_8.grid(row=1)
-    label_9.grid(row=2)
-    label_10.grid(row=3)
-    label_11.grid(row=4)
-    label_12.grid(row=5)
+    label_6 = Label(mainFrame_2, text="When Entering Yor Name Use Your Full Name")
+    label_7 = Label(mainFrame_2, text="Eg: John Doe", fg="#060273")
+    label_8 = Label(mainFrame_2, text="When Entering The Cost You Don't Have To Include A Dollar Sign ")
+    label_9 = Label(mainFrame_2, text="Eg: 299.99", fg="#060273")
+    label_10 = Label(mainFrame_2, text="Make Sure To Enter All Details Properly")
+    label_11 = Label(mainFrame_2, text="For Any Further Questions Contact matt.lipton@ucc.on.ca", fg="#060273")
+    label_6.grid(row=0)
+    label_7.grid(row=1)
+    label_8.grid(row=2)
+    label_9.grid(row=3)
+    label_10.grid(row=4)
+    label_11.grid(row=5)
 
     '#Makes space on root_2'
     spaceFrame_6 = Frame(root_2, height="30")
@@ -84,11 +84,11 @@ def end(event):
 
 def print_check():
     eN = entry_1.get()
-    eD = date_entry_1.get()
-    eI = entry_3.get()
-    eC = entry_4.get()
-    eP = entry_5.get()
-    eS = entry_6.get()
+    eD = str(datetime.datetime.now().date())
+    eI = entry_2.get()
+    eC = entry_3.get()
+    eP = entry_4.get()
+    eS = entry_5.get()
 
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     credentials = ServiceAccountCredentials.from_json_keyfile_name("b-d-e-d-fcc4fe94dee5.json", scope)
@@ -106,8 +106,6 @@ def print_check():
         messagebox.showerror("Error", "Please Enter The Cost Properly", icon="warning")
     if len(eN) == 0:
         messagebox.showerror("Error", "Please Enter Your Name", icon="warning")
-    if len(eD) == 0:
-        messagebox.showerror("Error", "Please Enter The Date", icon="warning")
     if len(eI) == 0:
         messagebox.showerror("Error", "Please Enter The Item Purchased", icon="warning")
     if len(eC) == 0:
@@ -119,7 +117,7 @@ def print_check():
 
     '#Checks if all the data was entered properly then adds it to B.D.E.D.xlsx'
     if eC.replace(".", "").isdigit():
-        if len(eN) and len(eD) and len(eI) and len(eC) and len(eP) and len(eS) >= 1:
+        if len(eN) and len(eI) and len(eC) and len(eP) and len(eS) >= 1:
             ayn = messagebox.askquestion("B.D.E.D", "Are You Sure")
             if ayn == 'yes':
                 for info in all_entries:
@@ -141,12 +139,16 @@ menuFrame_1 = Frame(root, bg="#060273", height="30")
 menuFrame_1.pack(fill=X)
 
 '#Makes space on GUI'
-spaceFrame_1 = Frame(root, height="5")
+spaceFrame_1 = Frame(root, height="15")
 spaceFrame_1.pack(fill=X)
 
 '#Creates title frame'
 tFrame_1 = Frame(root)
 tFrame_1.pack()
+
+'#Makes space on GUI'
+spaceFrame_1 = Frame(root, height="7")
+spaceFrame_1.pack(fill=X)
 
 '#Creates and adds a title to the GUI'
 title_1 = Label(tFrame_1, text="Enter Information")
@@ -164,17 +166,15 @@ lFrame_1.pack(side=LEFT)
 
 '#Create and add label widgets to GUI'
 label_1 = Label(lFrame_1, text="Name", bg="white", fg="black", height=2)
-label_2 = Label(lFrame_1, text="Date of Order", bg="white", fg="black", height=2)
-label_3 = Label(lFrame_1, text="Item Purchased", bg="white", fg="black", height=2)
-label_4 = Label(lFrame_1, text="Cost of Purchase", bg="white", fg="black", height=2)
-label_5 = Label(lFrame_1, text="Project", bg="white", fg="black", height=2)
-label_6 = Label(lFrame_1, text="Supplier", bg="white", fg="black", height=2)
+label_2 = Label(lFrame_1, text="Item Purchased", bg="white", fg="black", height=2)
+label_3 = Label(lFrame_1, text="Cost of Purchase", bg="white", fg="black", height=2)
+label_4 = Label(lFrame_1, text="Project", bg="white", fg="black", height=2)
+label_5 = Label(lFrame_1, text="Supplier", bg="white", fg="black", height=2)
 label_1.grid(row=1, sticky=W)
 label_2.grid(row=3, sticky=W)
 label_3.grid(row=5, sticky=W)
 label_4.grid(row=6, sticky=W)
 label_5.grid(row=7, sticky=W)
-label_6.grid(row=9, sticky=W)
 
 '#Creates entry box frame'
 eFrame_1 = Frame(mainFrame_1)
@@ -183,23 +183,17 @@ eFrame_1.pack(side=RIGHT)
 '#Create and add entry box widgets to GUI'
 entry_1 = Entry(eFrame_1)
 entry_2 = Entry(eFrame_1)
-date_entry_1 = DateEntry(eFrame_1, width="17", height="2", background="white")
 entry_3 = Entry(eFrame_1)
 entry_4 = Entry(eFrame_1)
 entry_5 = Entry(eFrame_1)
-entry_6 = Entry(eFrame_1)
-entry_2.config(state=DISABLED)
-date_entry_1.config(state=DISABLED)
 entry_1.grid(row=1, ipady=5)
 entry_2.grid(row=2, ipady=5)
-date_entry_1.grid(row=2, ipady=0)
 entry_3.grid(row=3, ipady=5)
 entry_4.grid(row=4, ipady=5)
 entry_5.grid(row=5, ipady=5)
-entry_6.grid(row=6, ipady=5)
 
 '#Makes space on GUI'
-spaceFrame_2 = Frame(root, height="5")
+spaceFrame_2 = Frame(root, height="15")
 spaceFrame_2.pack(fill=X)
 
 '#Creates the button frame'
@@ -212,7 +206,7 @@ enter_1.config(font=("Arial", 18))
 enter_1.grid(row=0, columnspan=4)
 
 '#Makes space on GUI'
-spaceFrame_3 = Frame(root, height="5")
+spaceFrame_3 = Frame(root, height="15")
 spaceFrame_3.pack(fill=X)
 
 '#Creates bottom menu frame'
