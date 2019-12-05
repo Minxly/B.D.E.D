@@ -3,6 +3,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from PIL import ImageTk, Image
 from tkinter import messagebox
+from tkcalendar import DateEntry
 
 
 def help_window(event):
@@ -23,7 +24,7 @@ def help_window(event):
     menuFrame_2.pack(fill=X)
 
     '#Makes space on root_2'
-    spaceFrame_4 = Frame(root_2, height="15")
+    spaceFrame_4 = Frame(root_2, height="25")
     spaceFrame_4.pack(fill=X)
 
     '#Creates title frame on root_2'
@@ -35,8 +36,8 @@ def help_window(event):
     title_2.config(font=("Arial", 18))
     title_2.pack()
 
-    '#Makes space on roo_2'
-    spaceFrame_5 = Frame(root_2, height="10")
+    '#Makes space on root_2'
+    spaceFrame_5 = Frame(root_2, height="15")
     spaceFrame_5.pack(fill=X)
 
     '#Creates the main frame to put label widgets on for root_2'
@@ -46,23 +47,19 @@ def help_window(event):
     '#Create and add label widgets to root_2'
     label_7 = Label(mainFrame_2, text="When Entering Yor Name Use Your Full Name")
     label_8 = Label(mainFrame_2, text="Eg: John Doe", fg="#060273")
-    label_9 = Label(mainFrame_2, text="When Entering The Date Enter It In The Following Format: Month, Day, Year")
-    label_10 = Label(mainFrame_2, text="Eg: December, 1, 2019", fg="#060273")
-    label_11 = Label(mainFrame_2, text="When Entering The Cost You Don't Have To Include A Dollar Sign ")
-    label_12 = Label(mainFrame_2, text="Eg: 299.99", fg="#060273")
-    label_13 = Label(mainFrame_2, text="Make Sure To Enter All Details Properly")
-    label_14 = Label(mainFrame_2, text="For Any Further Questions Contact matt.lipton@ucc.on.ca", fg="#060273")
+    label_9 = Label(mainFrame_2, text="When Entering The Cost You Don't Have To Include A Dollar Sign ")
+    label_10 = Label(mainFrame_2, text="Eg: 299.99", fg="#060273")
+    label_11 = Label(mainFrame_2, text="Make Sure To Enter All Details Properly")
+    label_12 = Label(mainFrame_2, text="For Any Further Questions Contact matt.lipton@ucc.on.ca", fg="#060273")
     label_7.grid(row=0)
     label_8.grid(row=1)
     label_9.grid(row=2)
     label_10.grid(row=3)
     label_11.grid(row=4)
     label_12.grid(row=5)
-    label_13.grid(row=6)
-    label_14.grid(row=7)
 
     '#Makes space on root_2'
-    spaceFrame_6 = Frame(root_2, height="10")
+    spaceFrame_6 = Frame(root_2, height="30")
     spaceFrame_6.pack(fill=X)
 
     '#Creates the button frame on root_2'
@@ -87,7 +84,7 @@ def end(event):
 
 def print_check():
     eN = entry_1.get()
-    eD = entry_2.get()
+    eD = date_entry_1.get()
     eI = entry_3.get()
     eC = entry_4.get()
     eP = entry_5.get()
@@ -121,14 +118,14 @@ def print_check():
         messagebox.showerror("Error", "Please Enter The Supplier", icon="warning")
 
     '#Checks if all the data was entered properly then adds it to B.D.E.D.xlsx'
-    if len(eN) and len(eD) and len(eI) and len(eC) and len(eP) and len(eS) >= 1 and eC.isdigit or eC.isdecimal():
-        ayn = messagebox.askquestion("B.D.E.D", "Are You Sure")
-        if ayn == 'yes':
-            for info in all_entries:
-                sheet.append_row(info)
-
-            '#Closes the window to prevent duplicate entries'
-            root.destroy()
+    if eC.replace(".", "").isdigit():
+        if len(eN) and len(eD) and len(eI) and len(eC) and len(eP) and len(eS) >= 1:
+            ayn = messagebox.askquestion("B.D.E.D", "Are You Sure")
+            if ayn == 'yes':
+                for info in all_entries:
+                    sheet.append_row(info)
+                '#Closes the window to prevent duplicate entries'
+                root.destroy()
 
 
 root = Tk()
@@ -158,7 +155,7 @@ title_1.pack()
 
 
 '#Creates the main frame to put label and entry box frame on'
-mainFrame_1 = Frame(root, borderwidth="2", relief=SUNKEN, width="400", height="180")
+mainFrame_1 = Frame(root, borderwidth="2", relief=SUNKEN, width="400", height="180", bg="white")
 mainFrame_1.pack(fill=None, expand=False)
 
 '#Creates label frame'
@@ -186,12 +183,16 @@ eFrame_1.pack(side=RIGHT)
 '#Create and add entry box widgets to GUI'
 entry_1 = Entry(eFrame_1)
 entry_2 = Entry(eFrame_1)
+date_entry_1 = DateEntry(eFrame_1, width="17", height="2", background="white")
 entry_3 = Entry(eFrame_1)
 entry_4 = Entry(eFrame_1)
 entry_5 = Entry(eFrame_1)
 entry_6 = Entry(eFrame_1)
+entry_2.config(state=DISABLED)
+date_entry_1.config(state=DISABLED)
 entry_1.grid(row=1, ipady=5)
 entry_2.grid(row=2, ipady=5)
+date_entry_1.grid(row=2, ipady=0)
 entry_3.grid(row=3, ipady=5)
 entry_4.grid(row=4, ipady=5)
 entry_5.grid(row=5, ipady=5)
