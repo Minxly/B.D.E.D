@@ -50,7 +50,7 @@ def help_window(event):
     label_10 = Label(mainFrame_2, text="Eg: December, 1, 2019", fg="#060273")
     label_11 = Label(mainFrame_2, text="When Entering The Cost You Don't Have To Include A Dollar Sign ")
     label_12 = Label(mainFrame_2, text="Eg: 299.99", fg="#060273")
-    label_13 = Label(mainFrame_2, text="Make Sure To#060273 Enter All Details Properly")
+    label_13 = Label(mainFrame_2, text="Make Sure To Enter All Details Properly")
     label_14 = Label(mainFrame_2, text="For Any Further Questions Contact matt.lipton@ucc.on.ca", fg="#060273")
     label_7.grid(row=0)
     label_8.grid(row=1)
@@ -104,7 +104,7 @@ def print_check():
     '#Creates list of all the entry box data'
     all_entries = [[eN, eD, eI, eC, eP, eS]]
 
-    '#Error checking for each entries length and for cost if it is a number or not'
+    '#Error checking for each entries length'
     if eC.isalpha():
         messagebox.showerror("Error", "Please Enter The Cost Properly", icon="warning")
     if len(eN) == 0:
@@ -121,7 +121,7 @@ def print_check():
         messagebox.showerror("Error", "Please Enter The Supplier", icon="warning")
 
     '#Checks if all the data was entered properly then adds it to B.D.E.D.xlsx'
-    if len(eN) and len(eD) and len(eI) and len(eC) and len(eP) and len(eS) >= 1 and eC.isdigit():
+    if len(eN) and len(eD) and len(eI) and len(eC) and len(eP) and len(eS) >= 1 and eC.isdigit or eC.isdecimal():
         ayn = messagebox.askquestion("B.D.E.D", "Are You Sure")
         if ayn == 'yes':
             for info in all_entries:
